@@ -1,14 +1,12 @@
 import json
 import requests
+import os
 
 API_URL = 'https://api.utdnebula.com'
-HEADERS = {'content-type': 'application/json', 'x-api-key': 'AIzaSyAHZiXbtbX1VsJnpRrx79oADW57GY8bn2A'}
+HEADERS = {'content-type': 'application/json', 'x-api-key': os.environ['API_KEY']}
 
 class Info:
-    result = {
-        'data':'',
-        'error': '',
-    }
+    result = { 'data':'', 'error': '' }
     def toJSON(self)->str:
         return json.dumps(self.result)
     def Do(self):
