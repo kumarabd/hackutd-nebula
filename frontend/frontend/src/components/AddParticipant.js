@@ -14,6 +14,7 @@ function AddParticipant() {
     let res = [];
     //const [data, setData] = useState('Empty');
     const handleTextInputChange = async e => {
+      console.log(e)
         if(res.length == 0){
             const response = await fetch(`http://127.0.0.1:8081/api/calender/members`, {
                     method: 'GET',
@@ -30,8 +31,6 @@ function AddParticipant() {
         }
     }
 
-    
-
     return (
         <div style={{ marginLeft: '10px', marginTop: '10px' }}>
           <h3>Add Participant!</h3>
@@ -44,8 +43,9 @@ function AddParticipant() {
               <TextField {...params} label="Enter Something"
                 variant="outlined" onChange={handleTextInputChange}/>
             )}/>
-            </div>
-          );
+        </div>
+        
+      );
     }
  
     
