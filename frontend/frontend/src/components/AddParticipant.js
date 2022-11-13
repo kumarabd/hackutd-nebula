@@ -5,11 +5,18 @@ import TextField from '@material-ui/core/TextField';
 import { useState } from "react";
 import Autocomplete,
 { createFilterOptions } from '@material-ui/lab/Autocomplete';
+import {ScheduleMeeting} from 'react-schedule-meeting';
 
 const filter = createFilterOptions();
 
 function AddParticipant() {
-
+    const availableTimeslots = [0, 1, 2, 3, 4, 5].map((id) => {
+        return {
+        id,
+        startTime: new Date(new Date(new Date().setDate(new Date().getDate() + id)).setHours(9, 0, 0, 0)),
+        endTime: new Date(new Date(new Date().setDate(new Date().getDate() + id)).setHours(17, 0, 0, 0)),
+        };
+    });
     const [data,setData] = useState([])
     const [res,setRes] = useState([])
     const [selectedData, setSelectedData] = useState('Empty');
@@ -56,6 +63,7 @@ function AddParticipant() {
     }
 
     return (
+        <div>
         <div style={{ marginLeft: '10px', marginTop: '10px' }}>
           <h3>Add Participant!</h3>
           <Autocomplete
@@ -68,9 +76,17 @@ function AddParticipant() {
               <TextField {...params} label="Enter Something"
                 variant="outlined" value={selectedData} onChange={handleTextInputChange}/>
             )}/>
-            <button style={{marginLeft:'40%'}} onClick={handleOnClick}> Get Available Slots </button>
+            <button style={{marginLeft:'40%'}, {marginTop: '5%'}, {marginBottom: '1%'}} onClick={handleOnClick}> Get Available Slots </button>
         </div>
-        
+        <div>
+        <ScheduleMeeting
+        borderRadius={10}
+        primaryColor="#3f5b85"
+        eventDurationInMinutes={15}
+        availableTimeslots={availableTimeslots}
+        onStartTimeSelect={console.log}/>
+    </div>
+    </div>
       );
     }
  
