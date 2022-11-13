@@ -55,3 +55,7 @@ class Course:
         self.laboratory_contact_hours = laboratory_contact_hours
         self.prerequisites = prerequisites
         self.sections = sections
+
+class Section:
+    def __init__(self):
+        return

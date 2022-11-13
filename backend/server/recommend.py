@@ -42,6 +42,7 @@ class Recommend:
         schools = []
         class_levels = []
         subject_prefixs = []
+        semesters = ['Fall', 'Spring', 'Summer']
         try:
             for c in course_objs:
                 schools.append(c.school)
@@ -53,7 +54,8 @@ class Recommend:
             return models.Result({
                 'schools' : schools,
                 'class_levels' : class_levels,
-                'subject_prefixs' : subject_prefixs
+                'subject_prefixs' : subject_prefixs,
+                'start_sem': semesters
             }, '')
         except requests.exceptions.HTTPError as err:
             return models.Result('', str(err))
