@@ -1,24 +1,28 @@
 import React, { Component } from "react";
 import { ScheduleMeeting } from 'react-schedule-meeting';
 
-
 class Planner extends Component {
-    
 
     render() {
         
-        // const [data, setData] = useState('Empty');
-        // const handleTextInputChange = async e => {
-        //     const response = await fetch(`http://b41f-129-110-242-17.ngrok.io/api/calender/members`, {
-        //             method: 'GET',
-        //             crossDomain:true,
-        //             headers: {'Content-Type': 'application/json'}
-        //           })
-        //     const result = await response.json()
-        //           console.log(result)
-        //           setData(result.data)
- 
-        //   }
+        //const [data, setData] = useState('Empty');
+        let res = []
+        let data = []
+        const handleTextInputChange = async e => {
+            const response = await fetch(`http://127.0.0.1:8081/api/calender/members/{id}`, {
+                    method: 'GET',
+                    crossDomain:true,
+                    headers: {'Content-Type': 'application/json'}
+                  })
+            const result = await response.json()
+                console.log(result)
+                data = result.data
+                data.forEach(element => {
+                for (var key in element) {
+                    res.push(element[key])
+                }
+            });
+          }
     
         const availableTimeslots = [0, 1, 2, 3, 4, 5].map((id) => {
             return {
@@ -29,13 +33,16 @@ class Planner extends Component {
         });
     
             return (
-                <ScheduleMeeting
+                <div>
+                    <button style={{marginLeft:'40%'}} onClick={handleTextInputChange}> Get Available Slots </button>
+                    <ScheduleMeeting
                     borderRadius={10}
                     primaryColor="#3f5b85"
                     eventDurationInMinutes={15}
                     availableTimeslots={availableTimeslots}
-                    onStartTimeSelect={console.log}
-                />
+                    onStartTimeSelect={console.log}/>
+                </div>
+                
             );
         }
     
