@@ -1,24 +1,34 @@
-import logo from './logo.svg';
+//import logo from './logo.svg';
 import './App.css';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import 'react-tabs/style/react-tabs.css';
+import MeetingPlanner from './components/MeetingPlanner'
+import CourseAnalysis from './components/CourseAnalysis'
+import CoursePlanner from './components/CoursePlanner'
 
 function App() {
+  //const [tabIndex, setTabIndex] = useState(0);
+  //selectedIndex={tabIndex} onSelect={(index) => setTabIndex(index)}
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <header>
+      <Tabs >
+      <TabList>
+        <Tab>Course Analysis</Tab>
+        <Tab>Meeting Scheduler</Tab>
+        <Tab>Course Recommendation</Tab>
+      </TabList>
+      <TabPanel>
+        {/* <CourseAnalysis/> */}
+      </TabPanel>
+      <TabPanel>
+        <MeetingPlanner/>
+      </TabPanel>
+      <TabPanel>
+        {/* <CoursePlanner/> */}
+      </TabPanel>
+    </Tabs>
+    </header>
+    
   );
 }
 
