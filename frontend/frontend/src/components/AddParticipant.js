@@ -10,49 +10,39 @@ const filter = createFilterOptions();
 
 function AddParticipant() {
 
-    const [data, setData] = useState('Empty');
+    let data = [];
+    let res = [];
+    //const [data, setData] = useState('Empty');
     const handleTextInputChange = async e => {
-    const response = await fetch(`http://127.0.0.1:8081/api/calender/members`, {
+        if(res.length == 0){
+            const response = await fetch(`http://127.0.0.1:8081/api/calender/members`, {
                     method: 'GET',
                     crossDomain:true,
                     headers: {'Content-Type': 'application/json'}
                   })
             const result = await response.json()
-                  console.log(result)
-                  setData(result.data)
+            data = result.data
+            data.forEach(element => {
+                for (var key in element) {
+                    res.push(element[key])
+                }
+            });
+        }
     }
 
-    let res = [];
-    data.array.forEach(element => {
-        for (var key in element) {
-            res.push(element[key])
-        }
-        
-    });
-    return (
-        
+    
 
+    return (
         <div style={{ marginLeft: '10px', marginTop: '10px' }}>
           <h3>Add Participant!</h3>
           <Autocomplete
-            filterOptions={(data, params) => {
-              const filtered = filter(res, params);
-              // Suggest the creation of a new value
-              if (params.inputValue !== '') {
-                filtered.push(`Add "${params.inputValue}"`);
-              }
-              return filtered;
-            }}
-            selectOnFocus
-            clearOnBlur
-            handleHomeEndKeys
-            options={data}
-            renderOption={(option) => option}
+            disablePortal
+            options={res}
+            id="combo-box-demo"
             style={{ width: 300 }}
-            freeSolo
             renderInput={(params) => (
               <TextField {...params} label="Enter Something"
-                variant="outlined" />
+                variant="outlined" onChange={handleTextInputChange}/>
             )}/>
             </div>
           );
