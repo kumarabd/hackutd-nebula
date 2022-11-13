@@ -1,6 +1,7 @@
 from flask import Flask, request
 from flask_cors import CORS, cross_origin
 import info
+import recommend
 import models
 from flask_caching import Cache
 
@@ -54,6 +55,19 @@ def book_time_slots(id):
     print(request.data)
     return models.Result('ok', '')
     
+@app.route("/api/course/plan", methods=['GET'])
+@cross_origin()
+@cache.cached(timeout=500)
+def recommend_degree():
+    #school = request.args.get('school')
+    #subject_prefix = request.args.get('subject_prefix')
+    #class_level = request.args.get('class_level')
+    school = 'Naveen Jindal School of Management'
+    class_level = 'Undergraduate'
+    subject_prefix = 'ACCT'
+    obj = recommend.Recommend(school, subject_prefix, class_level)
+    course_objs = obj.get_courses()
+    return obj.get_options(course_objs.data).toJSON()
 
 if __name__ == "__main__":
     app.run()
